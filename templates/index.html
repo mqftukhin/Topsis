@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Topsis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+      <h1>DESICION SUPPORT SYSTEM TOPSIS METHOD</h1>
+        <form action="/" method="POST" autocomplete="off">
+        <label for="alternatives">Alternatif (,):</label>
+        <input type="text" id="alternatives" name="alternatives" />
+        <br /><br />
+        <label for="weights">Weigth (,):</label>
+        <input type="text" id="weights" name="weights" />
+        <br /><br />
+        <label for="criteria_type">Criterion Type (,):</label>
+        <input type="text" id="criteria_type" name="criteria_type" />
+        <br /><br />
+        <label for="data">Alternatif Data (Spilt Row):</label>
+        <textarea id="data" name="data"></textarea>
+        <br /><br />
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if result %}
+    <h2>Result :</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Ranking</th>
+          <th>Alternatif</th>
+          <th>Skor</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for rank, (alt, score) in zip(result['ranked'], zip(result['alternatives'], result['scores'])) %}
+        <tr>
+          <td>{{ rank + 1 }}</td>
+          <td>{{ alt }}</td>
+          <td>{{ score }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </body>
+</html>
